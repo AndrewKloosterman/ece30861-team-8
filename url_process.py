@@ -7,16 +7,24 @@ def identify_urltype(url: str, api_key: str) -> url_type:
 
     # Set prompt
     prompt = f"""
-        Given this url, classify if it leads to a
+        Classify the given URL into exactly one of the following categories:
+
         - ML/AI model
         - A dataset used to train a ML/AI model
-        - The code to an ML/AI model
+        - The source code to an ML/AI model
         - None of the Above
+
+        Rules:
+        1. Huggingface URLs
+            a. If the path contains "/datasets/", classify as dataset.
+            b. Otherwise, if it's a huggingface.co repo, classify as model.
+            c. Hugging Face URLs are never "code".
+        2. GitHub URLs are always "code".
+        3. If the URL does not match these patterns, classify as "invalid".
 
         URL: {url}
 
-        Answer only one word corresponding to your answer with one of the following:
-        (model, dataset, code, invalid)
+        Answer with only one word: model, dataset, code, invalid
     """
     # Initialize the client
     chat_api = GenAiChatApi(

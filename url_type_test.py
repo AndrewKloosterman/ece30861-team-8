@@ -11,7 +11,7 @@ def url_test(url: str):
 
 
 def main():
-    url = "https://huggingface.co/datasets/facebook/recycling_the_web"
+    url = "https://huggingface.co/aoi-ot/VibeVoice-Large"
     url_test(url)
 
 
